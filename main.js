@@ -17,7 +17,10 @@ var readWorkbook = function(workbook) {
             case '!':
                 continue;
             case 'A':  // name
-                choices.push({name: worksheet[z].v.toString()});
+                choices.push({
+                    name: worksheet[z].v.toString(),
+                    picked: false,
+                });
                 break;
             case 'B':  // group
                 choices[choices.length - 1].group = worksheet[z].v.toString();
@@ -92,7 +95,8 @@ var updateGroupChoices = function() {
 
 // Handle when user clicks "Pick Random Name" button
 var pickRandom = function(e) {
-    var ourChoices;
+    var choicesMatchingGroup;
+    var unpickedChoices;
     var groupChoice = 'all';
     var radios = document.getElementsByName('group');
 
@@ -104,21 +108,27 @@ var pickRandom = function(e) {
     }
 
     if (groupChoice !== 'all') {
-        ourChoices = choices.filter(function(item) {
+        choicesMatchingGroup = choices.filter(function(item) {
             return item.group === groupChoice;
         });
     } else {
-        ourChoices = choices;
+        choicesMatchingGroup = choices;
     }
 
-    if (ourChoices.length === 0) {
-        log('Không còn dữ liệu!');
-        return;
-    }
+    unpickedChoices = choicesMatchingGroup.filter(function(item) {
+        return item.picked === false;
+    });
 
-    var index = Math.floor(Math.random()*ourChoices.length);
-    var item = ourChoices[index];
-    choices.splice(index, 1);
+    var index = Math.floor(Math.random()*unpickedChoices.length);
+    var item = unpickedChoices[index];
+    item.picked = true;
     log('=> ' + item.name + ' - ' + item.group);
+
+    if (unpickedChoices.length === 1) {
+        log('Hết dữ liệu. Lặp lại...');
+        for (var i = 0; i < choicesMatchingGroup.length; i++) {
+            choicesMatchingGroup[i].picked = false;
+        }
+    }
 };
 document.getElementById('pick-btn').onclick = pickRandom;
