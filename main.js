@@ -17,10 +17,10 @@ var readWorkbook = function(workbook) {
             case '!':
                 continue;
             case 'A':  // name
-                choices.push({name: worksheet[z].v});
+                choices.push({name: worksheet[z].v.toString()});
                 break;
             case 'B':  // group
-                choices[choices.length - 1].group = worksheet[z].v;
+                choices[choices.length - 1].group = worksheet[z].v.toString();
                 break;
         }
     }
@@ -114,7 +114,6 @@ var pickRandom = function(e) {
     //var no = Math.floor(Math.random()*ourChoices.length);
     //var item = ourChoices[no];
     var item = ourChoices[Math.floor(Math.random()*ourChoices.length)];
-    item.count += 1;
     log('=> ' + item.name + ' - ' + item.group);
 };
 document.getElementById('pick-btn').onclick = pickRandom;
