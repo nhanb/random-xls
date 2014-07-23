@@ -111,9 +111,14 @@ var pickRandom = function(e) {
         ourChoices = choices;
     }
 
-    //var no = Math.floor(Math.random()*ourChoices.length);
-    //var item = ourChoices[no];
-    var item = ourChoices[Math.floor(Math.random()*ourChoices.length)];
+    if (ourChoices.length === 0) {
+        log('Không còn dữ liệu!');
+        return;
+    }
+
+    var index = Math.floor(Math.random()*ourChoices.length);
+    var item = ourChoices[index];
+    choices.splice(index, 1);
     log('=> ' + item.name + ' - ' + item.group);
 };
 document.getElementById('pick-btn').onclick = pickRandom;
