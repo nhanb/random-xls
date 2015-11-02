@@ -25,9 +25,28 @@ var readWorkbook = function(workbook) {
             case 'B':  // group
                 choices[choices.length - 1].group = worksheet[z].v.toString();
                 break;
+            case 'C':
+                console.log('got', worksheet[z].v);
+                choices[choices.length - 1].priority = worksheet[z].v;
         }
     }
     log('Vừa cập nhật ' + choices.length + ' tên.');
+
+    // Sort by priority
+    choices.sort(function(a, b) {
+      if (typeof a.priority === 'string') {
+        return 1;
+      } else if (typeof b.priority === 'string') {
+        return -1;
+      }
+      return a.priority - b.priority;
+    });
+
+    for (var aa in choices) {
+      console.log(choices[aa].priority);
+    }
+    console.log(choices);
+
     updateGroupChoices();
 };
 
@@ -119,7 +138,19 @@ var pickRandom = function(e) {
         return item.picked === false;
     });
 
-    var index = Math.floor(Math.random()*unpickedChoices.length);
+    var priorities = Array.from(new Set(unpickedChoices.map(function(item) {
+      return item.priority;
+    })));
+    console.log('p', priorities);
+    var currentPriority = priorities[0];
+    console.log('cp', currentPriority);
+
+    var prioritizedChoices = unpickedChoices.filter(function(item) {
+        return item.priority === currentPriority;
+    })
+    console.log('prioritizedChoices:', prioritizedChoices);
+
+    var index = Math.floor(Math.random()*prioritizedChoices.length);
     var item = unpickedChoices[index];
     item.picked = true;
     log('=> ' + item.name + ' - ' + item.group);
