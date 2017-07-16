@@ -30,6 +30,13 @@ var readWorkbook = function(workbook) {
                 choices[choices.length - 1].priority = worksheet[z].v;
         }
     }
+
+    choices.forEach(function(choice) {
+        if (typeof choice.group === 'undefined') {
+            choice.group = '(không có nhóm)';
+        }
+    });
+
     log('Vừa cập nhật ' + choices.length + ' tên.');
 
     // Sort by priority
