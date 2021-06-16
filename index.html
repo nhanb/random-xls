@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Chọn tên ngẫu nhiên</title>
-  <style media="screen" type="text/css">
-    #logs {
-      max-width: 700px;
-      height: 10em;
-      border: solid 2px gray;
-      overflow-y: scroll;
-    }
-    ul {list-style-type: none;}
-
-  </style>
-</head>
-<body>
-  <input type="file" id="fileInput">
-  <pre id="logs"></pre>
-  <ul id="groups">
-  </ul>
-  <button id="pick-btn">Chọn tên ngẫu nhiên</button>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.3.0/jszip.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.7/xlsx.js"></script>
-  <script src="main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chọn tên ngẫu nhiên</title>
+    <style media="screen" type="text/css">
+      #logs {
+        max-width: 700px;
+        height: 10em;
+        border: solid 2px gray;
+        overflow-y: scroll;
+      }
+      ul {
+        list-style-type: none;
+      }
+      textarea {
+        display: block;
+        margin: 1em 0;
+        width: 100%;
+        max-width: 700px;
+        background-color: white;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="file" id="fileInput" />
+    <textarea id="logs" readonly></textarea>
+    <ul id="groups"></ul>
+    <button id="pick-btn">Chọn tên ngẫu nhiên</button>
+    <button id="copy-btn">Copy</button>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.3.0/jszip.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.7/xlsx.js"></script>
+    <script src="main.js"></script>
+  </body>
 </html>
